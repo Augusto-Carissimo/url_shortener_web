@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Part II: Building the Client Application
+Upon approval from LTV, please move forward with the second part of the code challenge.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Setting Up the Front-End (React used as an example). Please note that you may create a separate Github repository for this application in your personal Github account and share the repository with us via email once it is complete.
 
-## Available Scripts
+1. **Create the Front-End Application**:
+   - For React: `npx create-react-app my-app`
 
-In the project directory, you can run:
+2. **Local Development Configuration**:
+   - Set the `proxy` in the front-end project’s package configuration to route API requests to the Docker-hosted Rails server.
+   - For React in `package.json`:
+     ```json
+     "proxy": "http://localhost:3000",
+     ```
 
-### `npm start`
+## Core Requirements for Part II:
+* There must be a view for the Top 100 most frequently accessed URLs.
+* There must be a form for inputting URLs into the system.
+* Inputting a valid URL should result in displaying the new shortened URL to the user.
+* Inputting an invalid URL should result in displaying errors to the user.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# General Advice for Connecting Both Apps
 
-### `npm test`
+1. **Cross-Origin Resource Sharing (CORS)**:
+   - Configure CORS in the Rails application to allow requests from the front-end domain, even locally. This is crucial for local development environments where ports differ.
+   - Example CORS setup in Rails:
+     ```ruby
+     # Gemfile
+     gem 'rack-cors'
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+     # config/initializers/cors.rb
+     Rails.application.config.middleware.insert_before 0, Rack::Cors do
+       allow do
+         origins 'localhost:3001' # Adjust the port for the React app
+         resource '*',
+                  headers: :any,
+                  methods: [:get, :post, :put, :delete, :options]
+       end
+     end
+     ```
 
-### `npm run build`
+3. **Testing Connectivity**:
+   - Test the connection by making a simple API call from the front-end app to the Rails API to fetch or send data.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Documentation and Resources**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ##### Docker
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    1. **Docker Documentation**:
+       - [Docker Overview](https://docs.docker.com/get-started/overview/)
+       - [Docker Compose](https://docs.docker.com/compose/)
 
-### `npm run eject`
+    ##### Rails
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    2. **Rails API**:
+       - [Getting Started with Rails](https://guides.rubyonrails.org/getting_started.html)
+       - [Building a Rails API](https://guides.rubyonrails.org/api_app.html)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    3. **CORS in Rails**:
+       - [rack-cors gem on GitHub](https://github.com/cyu/rack-cors)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ##### React
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    4. **React Documentation**:
+       - [Create React App](https://create-react-app.dev/)
+       - [React Proxy Configuration](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
 
-## Learn More
+   ##### General Development and Troubleshooting
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    5. **CORS (Cross-Origin Resource Sharing)**:
+       - [Mozilla CORS Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    6. **Networking in Docker**:
+       - [Docker Network Overview](https://docs.docker.com/network/)
 
-### Code Splitting
+# Debugging Tips
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+##### Check Docker Container Status
+Use `docker ps` to ensure that all required containers are up and running. If a container is not running, use `docker logs [container_name]` to inspect any error messages that may have caused the container to crash or fail to start.
 
-### Analyzing the Bundle Size
+##### Verify Port Exposure and Mapping
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Ensure that the ports your Rails API needs are correctly exposed and mapped in your Docker setup. This is defined in your docker-compose.yml file under the ports section. Use `docker port [container_name]` to see the actual port mappings.
 
-### Making a Progressive Web App
+##### Network Connectivity
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Test network connectivity between your Docker containers and your local machine. You can use `docker exec -it [container_name] ping [target_IP_or_hostname]` to check if your container can reach your front-end application or external services.
 
-### Advanced Configuration
+##### Check Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Incorrect environment variables can often cause applications to behave unexpectedly. Double-check that all required environment variables are properly set. You can use `docker exec -it [container_name] env` to list environment variables within a container.
 
-### Deployment
+##### Review CORS Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Cross-Origin Resource Sharing (CORS) issues can prevent your front-end application from communicating with your Rails API. Ensure CORS is configured correctly in your Rails application to allow requests from the appropriate front-end URL.
 
-### `npm run build` fails to minify
+##### Browser Console and Network Tools
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Utilize browser developer tools to inspect console logs and network requests. This can provide insights into errors occurring on the front-end, such as failed network requests, CORS issues, or JavaScript errors.
+
+##### Rails Logs
+
+Check Rails logs for any error messages or stack traces. This can be done by looking at the output in your terminal where you run the Docker container or by accessing the log files directly within the container using docker exec -it [container_name] tail -f log/development.log.
+
+##### Front-End Framework Debugging
+
+For React, use the React Developer Tools extension to inspect components and their states.
+
+##### Rebuild Docker Containers
+
+If you make changes to the Docker setup (like Dockerfile or docker-compose files), ensure you rebuild your containers with docker-compose build and restart them. Sometimes, persistent issues are resolved by simply rebuilding the environment.
+
+##### Simplify and Isolate
+
+When faced with a complex error, simplify the scenario or isolate components to narrow down the source of the problem. For instance, test API endpoints independently with tools like Postman or curl to ensure they work as expected before connecting them with the front-end.
