@@ -22,6 +22,22 @@ const UrlList = ({ urls, error }) => {
     return title.substring(0, maxLength) + '...';
   };
 
+  const handleLinkClick = (e, url) => {
+    e.preventDefault();
+
+    window.open(url.full_url, '_blank', 'noopener,noreferrer');
+
+    fetch('/url-click', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ full_url: url.full_url }),
+    }).catch(error => {
+      console.error('Error recording click:', error);
+    });
+  };
+
   return (
     <div className="url-list-container">
       <h2>Top 100 visited websites</h2>
@@ -39,10 +55,9 @@ const UrlList = ({ urls, error }) => {
             </div>
             <div className="url-full">
               {url.full_url ? (
-                <a
+              <a
                   href={url.full_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => handleLinkClick(e, url)}
                   className="url-link"
                 >
                   {url.full_url}
