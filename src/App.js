@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import UrlForm from './componets/UrlForm';
 import UrlList from './componets/UrlList';
+import ThemeToggle from './componets/ThemeToggle';
+import { ThemeProvider } from './context/ThemeContext';
+import './css/theme.css';
 import './App.css';
+
 
 function App() {
   const [testResponse, setTestResponse] = useState(null);
@@ -35,24 +39,27 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>URL Shortener</h1>
-      </header>
+    <ThemeProvider>
+      <div className="app">
+        <header className="app-header">
+          <h1>URL Shortener</h1>
+          <ThemeToggle />
+        </header>
 
-      <main>
-        <UrlForm onUrlAdded={handleUrlAdded} />
+        <main>
+          <UrlForm onUrlAdded={handleUrlAdded} />
 
-        {loading ? (
-          <div className="loading">Loading...</div>
-        ) : (
-          <UrlList
-            urls={testResponse?.urls}
-            error={error}
-          />
-        )}
-      </main>
-    </div>
+          {loading ? (
+            <div className="loading">Loading...</div>
+          ) : (
+            <UrlList
+              urls={testResponse?.urls}
+              error={error}
+            />
+          )}
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
 

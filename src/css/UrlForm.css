@@ -2,6 +2,9 @@
   padding: 20px;
   max-width: 1000px;
   margin: 0 auto 30px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
 .url-form {
@@ -16,29 +19,31 @@
 .url-input {
   flex: 1;
   padding: 12px 16px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 16px;
   outline: none;
   transition: border-color 0.2s ease;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .url-input:focus {
-  border-color: #2563eb;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .url-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-secondary-color);
 }
 
 .url-input:disabled {
-  background-color: #f3f4f6;
+  background-color: var(--surface-color);
   cursor: not-allowed;
 }
 
 .submit-button {
-  background-color: #2563eb;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 4px;
@@ -50,29 +55,29 @@
 }
 
 .submit-button:hover {
-  background-color: #1d4ed8;
+  background-color: var(--secondary-color);
 }
 
 .submit-button:disabled {
-  background-color: #93c5fd;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
 .error-message {
   margin-top: 12px;
-  color: #dc2626;
+  color: var(--error-color);
   font-size: 14px;
   padding: 8px 12px;
-  background-color: #fee2e2;
+  background-color: rgba(220, 38, 38, 0.1);
   border-radius: 4px;
 }
 
 .success-message {
   margin-top: 12px;
-  color: #16a34a;
+  color: var(--success-color);
   font-size: 14px;
   padding: 8px 12px;
-  background-color: #dcfce7;
+  background-color: rgba(22, 163, 74, 0.1);
   border-radius: 4px;
 }
 

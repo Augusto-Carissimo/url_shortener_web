@@ -2,26 +2,28 @@
   padding: 20px;
   max-width: 1000px;
   margin: 0 auto;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
 }
 
-/* Header row styling */
 .url-list-header {
   display: grid;
   grid-template-columns: 2fr 3fr 1fr 1fr;
   gap: 16px;
   padding: 12px 16px;
-  background-color: #f5f5f5;
+  background-color: var(--surface-color);
   border-radius: 4px 4px 0 0;
   font-weight: 600;
   font-size: 14px;
-  color: #555;
+  color: var(--text-secondary-color);
 }
 
 .url-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 0 0 4px 4px;
   border-top: none;
 }
@@ -31,8 +33,9 @@
   grid-template-columns: 2fr 3fr 1fr 1fr;
   gap: 16px;
   padding: 12px 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
   align-items: center;
+  background-color: var(--background-color);
 }
 
 .url-list-item:last-child {
@@ -40,7 +43,7 @@
 }
 
 .url-list-item:hover {
-  background-color: #f9f9f9;
+  background-color: var(--surface-color);
 }
 
 .url-title {
@@ -48,7 +51,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #333;
+  color: var(--text-color);
 }
 
 .url-full {
@@ -58,7 +61,7 @@
 }
 
 .url-link {
-  color: #2563eb;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -68,10 +71,14 @@
 
 .url-clicks, .url-short {
   text-align: center;
-  color: #666;
+  color: var(--text-secondary-color);
 }
 
-/* Responsive styles */
+.url-missing {
+  color: var(--text-secondary-color);
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .url-list-header, .url-list-item {
     grid-template-columns: 2fr 3fr 1fr;
@@ -121,14 +128,14 @@
 .url-empty-state {
   padding: 40px 20px;
   text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   margin-top: 20px;
 }
 
 .url-empty-state p {
   font-size: 16px;
-  color: #666;
+  color: var(--text-secondary-color);
   margin: 0;
 }

@@ -1,0 +1,37 @@
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.theme-checkbox {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.theme-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.theme-label:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.theme-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.theme-text {
+  font-size: 14px;
+}
