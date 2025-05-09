@@ -23,7 +23,7 @@ const UrlForm = ({ onUrlAdded }) => {
       setMessage(null);
       setIsError(false);
 
-      const response = await fetch('http://localhost:3000/short_urls', {
+      const response = await fetch('/short_urls', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
