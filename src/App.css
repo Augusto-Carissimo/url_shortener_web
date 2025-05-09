@@ -45,10 +45,12 @@
 
 .app-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: var(--header-background);
+  position: relative;
+  margin-bottom: 20px;
+  background-color: var(--surface-color);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -61,4 +63,11 @@
   text-align: center;
   padding: 40px;
   color: var(--text-secondary-color);
+}
+
+.theme-toggle {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
